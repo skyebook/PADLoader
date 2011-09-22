@@ -1,0 +1,3 @@
+h1. PADLoader - Load NYC Property Address Directory into Database
+
+This is a project to help load NYC PAD data into a database.  The data can be obtained from here: http://www.nyc.gov/html/dcp/html/bytes/applbyte.shtml
