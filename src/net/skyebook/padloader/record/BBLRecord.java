@@ -22,37 +22,63 @@ package net.skyebook.padloader.record;
  * @author Skye Book
  *
  */
-public class BBLRecord {
-	
+public class BBLRecord extends Record{
+
+	public enum Fields{
+		loboro,
+		loblock,
+		lolot,
+		lobblscc,
+		hiboro,
+		hiblock,
+		hilot,
+		hibblscc,
+		boro,
+		block,
+		lot,
+		bblscc,
+		billboro,
+		billblock,
+		billlot,
+		billbblscc,
+		condoflag,
+		condonum,
+		coopnum,
+		numbf,
+		numaddr,
+		vacant,
+		interior
+	}
+
 	private short loboro;
 	private int loblock;
 	private int lolot;
 	private short lobblscc;
-	
+
 	private short hiboro;
 	private int hiblock;
 	private int hilot;
 	private int hibblscc;
-	
+
 	// Foreign Keys to the ADR table
 	private short boro;
 	private int block;
 	private int lot;
-	
+
 	private short bblscc;
 	private short billboro;
 	private int billblock;
 	private int billlot;
 	private short billbblscc;
-	
+
 	private char condoflag;
-	private int congonumber;
-	private int coopnumber;
+	private int condonum;
+	private int coopnum;
 	private short numbf;
 	private int numaddr;
 	private char vacant;
 	private char interior;
-	
+
 
 	/**
 	 * 
@@ -334,34 +360,34 @@ public class BBLRecord {
 
 
 	/**
-	 * @return the congonumber
+	 * @return the condonum
 	 */
-	public int getCongonumber() {
-		return congonumber;
+	public int getCondonum() {
+		return condonum;
 	}
 
 
 	/**
-	 * @param congonumber the congonumber to set
+	 * @param congonumber the condonum to set
 	 */
-	public void setCongonumber(int congonumber) {
-		this.congonumber = congonumber;
+	public void setCongonumber(int condonum) {
+		this.condonum = condonum;
 	}
 
 
 	/**
-	 * @return the coopnumber
+	 * @return the coopnum
 	 */
-	public int getCoopnumber() {
-		return coopnumber;
+	public int getCoopnum() {
+		return coopnum;
 	}
 
 
 	/**
-	 * @param coopnumber the coopnumber to set
+	 * @param coopnumber the coopnum to set
 	 */
-	public void setCoopnumber(int coopnumber) {
-		this.coopnumber = coopnumber;
+	public void setCoopnum(int coopnum) {
+		this.coopnum = coopnum;
 	}
 
 
@@ -427,5 +453,5 @@ public class BBLRecord {
 	public void setInterior(char interior) {
 		this.interior = interior;
 	}
-	
+
 }
