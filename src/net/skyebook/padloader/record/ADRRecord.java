@@ -55,12 +55,12 @@ public class ADRRecord extends Record{
 	private int bin;
 	private String lhnd;
 	private String lhns;
-	private short lcontpar;
-	private short lsos;
+	private char lcontpar;
+	private char lsos;
 	private String hhnd;
 	private String hhns;
-	private short hcontpar;
-	private short hsos;
+	private char hcontpar;
+	private char hsos;
 	private short scboro;
 	private int sc5;
 	private short sclgc;
@@ -166,28 +166,28 @@ public class ADRRecord extends Record{
 	/**
 	 * @return the lcontpar
 	 */
-	public short getLcontpar() {
+	public char getLcontpar() {
 		return lcontpar;
 	}
 
 	/**
 	 * @param lcontpar the lcontpar to set
 	 */
-	public void setLcontpar(short lcontpar) {
+	public void setLcontpar(char lcontpar) {
 		this.lcontpar = lcontpar;
 	}
 
 	/**
 	 * @return the lsos
 	 */
-	public short getLsos() {
+	public char getLsos() {
 		return lsos;
 	}
 
 	/**
 	 * @param lsos the lsos to set
 	 */
-	public void setLsos(short lsos) {
+	public void setLsos(char lsos) {
 		this.lsos = lsos;
 	}
 
@@ -222,28 +222,28 @@ public class ADRRecord extends Record{
 	/**
 	 * @return the hcontpar
 	 */
-	public short getHcontpar() {
+	public char getHcontpar() {
 		return hcontpar;
 	}
 
 	/**
 	 * @param hcontpar the hcontpar to set
 	 */
-	public void setHcontpar(short hcontpar) {
+	public void setHcontpar(char hcontpar) {
 		this.hcontpar = hcontpar;
 	}
 
 	/**
 	 * @return the hsos
 	 */
-	public short getHsos() {
+	public char getHsos() {
 		return hsos;
 	}
 
 	/**
 	 * @param hsos the hsos to set
 	 */
-	public void setHsos(short hsos) {
+	public void setHsos(char hsos) {
 		this.hsos = hsos;
 	}
 
