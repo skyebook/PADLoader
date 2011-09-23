@@ -22,7 +22,7 @@ package net.skyebook.padloader.record;
  * @author Skye Book
  *
  */
-public class ADRRecord {
+public class ADRRecord extends Record{
 	
 	private short boro;
 	private int block;
