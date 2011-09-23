@@ -39,7 +39,15 @@ public abstract class CSVReader {
 	}
 	
 	protected boolean isEmptyValue(String value){
-		return value.isEmpty() || value.equals(" ");
+		if(value.isEmpty()) return true;
+		else{
+			for(int i=0; i<value.length(); i++){
+				if(value.charAt(i)!=' '){
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 	
 	protected BufferedReader openFileReader(File file) throws FileNotFoundException{

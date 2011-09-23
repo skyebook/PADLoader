@@ -129,7 +129,7 @@ public class BBLReader extends CSVReader {
 				bbl.setCondoflag(values[i].charAt(0));
 				break;
 			case condonum:
-				bbl.setCondonum(Integer.parseInt(values[i]));
+				bbl.setCondonum(values[i]);
 				break;
 			case coopnum:
 				bbl.setCoopnum(Integer.parseInt(values[i]));

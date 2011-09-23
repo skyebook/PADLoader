@@ -72,7 +72,7 @@ public class BBLRecord extends Record{
 	private short billbblscc;
 
 	private char condoflag;
-	private int condonum;
+	private String condonum;
 	private int coopnum;
 	private short numbf;
 	private int numaddr;
@@ -362,7 +362,7 @@ public class BBLRecord extends Record{
 	/**
 	 * @return the condonum
 	 */
-	public int getCondonum() {
+	public String getCondonum() {
 		return condonum;
 	}
 
@@ -370,7 +370,7 @@ public class BBLRecord extends Record{
 	/**
 	 * @param condonum the condonum to set
 	 */
-	public void setCondonum(int condonum) {
+	public void setCondonum(String condonum) {
 		this.condonum = condonum;
 	}
 
