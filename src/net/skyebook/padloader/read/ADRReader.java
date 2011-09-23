@@ -32,7 +32,7 @@ import net.skyebook.padloader.record.Record;
  */
 public class ADRReader extends CSVReader {
 	
-	String[] keys = null;
+	private String[] keys = null;
 
 	/* (non-Javadoc)
 	 * @see net.skyebook.padloader.read.CSVReader#readRecords(java.io.File)
@@ -50,10 +50,13 @@ public class ADRReader extends CSVReader {
 			// If this is the first line, they keys will still be null
 			if(keys==null){
 				keys = line.split(",");
+				stripQuotesFromLine(keys);
 			}
 			// If this isn't the first line, we simply process the record and add it to the list
 			else{
-				ADRRecord record = createADRecord(line.split(","));
+				String[] values = line.split(",");
+				stripQuotesFromLine(values);
+				ADRRecord record = createADRRecord(values);
 				records.add(record);
 			}
 		}
@@ -61,11 +64,17 @@ public class ADRReader extends CSVReader {
 		return records;
 	}
 	
-	private ADRRecord createADRecord(String values[]){
+	private ADRRecord createADRRecord(String values[]){
 		ADRRecord adr = new ADRRecord();
 		
 		for(int i=0; i<values.length; i++){
 			ADRRecord.Fields key = ADRRecord.Fields.valueOf(keys[i]);
+			
+			// if the value is empty, skip it
+			if(isEmptyValue(values[i])){
+				continue;
+			}
+			
 			// what does it link to?
 			switch (key) {
 			case boro:

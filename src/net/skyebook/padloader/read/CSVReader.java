@@ -32,6 +32,16 @@ import net.skyebook.padloader.record.Record;
  */
 public abstract class CSVReader {
 	
+	protected void stripQuotesFromLine(String[] line){
+		for(int i=0; i<line.length; i++){
+			line[i] = line[i].substring(1, line[i].length()-1);
+		}
+	}
+	
+	protected boolean isEmptyValue(String value){
+		return value.isEmpty() || value.equals(" ");
+	}
+	
 	protected BufferedReader openFileReader(File file) throws FileNotFoundException{
 		return new BufferedReader(new FileReader(file));
 	}
