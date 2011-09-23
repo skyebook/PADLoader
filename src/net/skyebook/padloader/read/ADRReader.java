@@ -50,12 +50,12 @@ public class ADRReader extends CSVReader {
 			// If this is the first line, they keys will still be null
 			if(keys==null){
 				keys = line.split(",");
-				stripQuotesFromLine(keys);
+				//stripQuotesFromLine(keys);
 			}
 			// If this isn't the first line, we simply process the record and add it to the list
 			else{
 				String[] values = line.split(",");
-				stripQuotesFromLine(values);
+				//stripQuotesFromLine(values);
 				ADRRecord record = createADRRecord(values);
 				records.add(record);
 			}
@@ -96,10 +96,10 @@ public class ADRReader extends CSVReader {
 				adr.setLhns(values[i]);
 				break;
 			case lcontpar:
-				adr.setLcontpar(Short.parseShort(values[i]));
+				adr.setLcontpar(values[i].charAt(0));
 				break;
 			case lsos:
-				adr.setLsos(Short.parseShort(values[i]));
+				adr.setLsos(values[i].charAt(0));
 				break;
 			case hhnd:
 				adr.setHhnd(values[i]);
@@ -108,10 +108,10 @@ public class ADRReader extends CSVReader {
 				adr.setHhns(values[i]);
 				break;
 			case hcontpar:
-				adr.setHcontpar(Short.parseShort(values[i]));
+				adr.setHcontpar(values[i].charAt(0));
 				break;
 			case hsos:
-				adr.setHsos(Short.parseShort(values[i]));
+				adr.setHsos(values[i].charAt(0));
 				break;
 			case scboro:
 				adr.setScboro(Short.parseShort(values[i]));
@@ -126,7 +126,7 @@ public class ADRReader extends CSVReader {
 				adr.setStname(values[i]);
 				break;
 			case addrtype:
-				adr.setAddrtype(Short.parseShort(values[i]));
+				adr.setAddrtype(values[i].charAt(0));
 				break;
 			case realb7sc:
 				adr.setRealb7sc(Integer.parseInt(values[i]));

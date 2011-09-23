@@ -34,7 +34,8 @@ public abstract class CSVReader {
 	
 	protected void stripQuotesFromLine(String[] line){
 		for(int i=0; i<line.length; i++){
-			line[i] = line[i].substring(1, line[i].length()-1);
+			if(line[i].isEmpty()) continue;
+			else line[i] = line[i].substring(1, line[i].length()-1);
 		}
 	}
 	

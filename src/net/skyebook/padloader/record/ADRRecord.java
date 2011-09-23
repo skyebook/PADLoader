@@ -65,7 +65,7 @@ public class ADRRecord extends Record{
 	private int sc5;
 	private short sclgc;
 	private String stname;
-	private short addrtype;
+	private char addrtype;
 	private int realb7sc;
 	private short[] validlgcs;
 	private short parity;
@@ -306,14 +306,14 @@ public class ADRRecord extends Record{
 	/**
 	 * @return the addrtype
 	 */
-	public short getAddrtype() {
+	public char getAddrtype() {
 		return addrtype;
 	}
 
 	/**
 	 * @param addrtype the addrtype to set
 	 */
-	public void setAddrtype(short addrtype) {
+	public void setAddrtype(char addrtype) {
 		this.addrtype = addrtype;
 	}
 
