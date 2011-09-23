@@ -368,9 +368,9 @@ public class BBLRecord extends Record{
 
 
 	/**
-	 * @param congonumber the condonum to set
+	 * @param condonum the condonum to set
 	 */
-	public void setCongonumber(int condonum) {
+	public void setCondonum(int condonum) {
 		this.condonum = condonum;
 	}
 
