@@ -24,6 +24,31 @@ package net.skyebook.padloader.record;
  */
 public class ADRRecord extends Record{
 	
+	public enum Fields{
+		boro,
+		block,
+		lot,
+		bin,
+		lhnd,
+		lhns,
+		lcontpar,
+		lsos,
+		hhnd,
+		hhns,
+		hcontpar,
+		hsos,
+		scboro,
+		sc5,
+		sclgc,
+		stname,
+		addrtype,
+		realb7sc,
+		validlgcs,
+		parity,
+		b10sc,
+		segid
+	}
+	
 	private short boro;
 	private int block;
 	private int lot;
