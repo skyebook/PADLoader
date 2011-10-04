@@ -1,0 +1,26 @@
+-- Create the BBL table
+CREATE TABLE bbl(
+loboro SMALLINT,
+loblock INTEGER,
+lolot INTEGER,
+lobblscc SMALLINT,
+hiboro SMALLINT,
+hiblock INTEGER,
+hilot INTEGER,
+hibblscc SMALLINT,
+boro SMALLINT,
+block INTEGER,
+lot INTEGER,
+bblscc SMALLINT,
+billboro SMALLINT,
+billblock INTEGER,
+billlot INTEGER,
+billbblscc SMALLINT,
+condoflag CHAR,
+condonum VARCHAR(255),
+coopnum INTEGER,
+numbf SMALLINT,
+numaddr INTEGER,
+vacant CHAR,
+interior CHAR
+)
