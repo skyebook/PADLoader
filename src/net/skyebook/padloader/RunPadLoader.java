@@ -71,7 +71,7 @@ public class RunPadLoader {
 			db.addRecord(record);
 		}
 		
-		System.out.println("ADR database insert took " + (System.currentTimeMillis()-dbStart)+"ms");
+		System.out.println("BBL database insert took " + (System.currentTimeMillis()-dbStart)+"ms");
 		
 		// release the resources
 		bbl = null;
