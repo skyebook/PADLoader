@@ -58,7 +58,7 @@ public class BBLRecord extends Record{
 	private short hiboro;
 	private int hiblock;
 	private int hilot;
-	private int hibblscc;
+	private short hibblscc;
 
 	// Foreign Keys to the ADR table
 	private short boro;
@@ -202,7 +202,7 @@ public class BBLRecord extends Record{
 	/**
 	 * @return the hibblscc
 	 */
-	public int getHibblscc() {
+	public short getHibblscc() {
 		return hibblscc;
 	}
 
@@ -210,7 +210,7 @@ public class BBLRecord extends Record{
 	/**
 	 * @param hibblscc the hibblscc to set
 	 */
-	public void setHibblscc(int hibblscc) {
+	public void setHibblscc(short hibblscc) {
 		this.hibblscc = hibblscc;
 	}
 

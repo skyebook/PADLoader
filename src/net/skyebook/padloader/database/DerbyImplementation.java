@@ -42,6 +42,9 @@ public class DerbyImplementation implements DatabaseInterface {
 			insertADR = connection.prepareStatement("INSERT INTO adr VALUES(?, ?, ?, ?, ?," +
 					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
+			insertBBL = connection.prepareStatement("INSERT INTO bbl VALUES(?, ?, ?, ?, ?," +
+					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -82,7 +85,7 @@ public class DerbyImplementation implements DatabaseInterface {
 			insertADR.setString(16, record.getStname());
 			insertADR.setString(17, ""+record.getAddrtype());
 			insertADR.setInt(18, record.getRealb7sc());
-			insertADR.setString(19, "PUT SHORT ARRAY HERE");
+			insertADR.setString(19, createShortArray(record.getValidlgcs()));
 			insertADR.setShort(20, record.getParity());
 			insertADR.setLong(21, record.getB10sc());
 			insertADR.setInt(22, record.getSegid());
@@ -92,14 +95,41 @@ public class DerbyImplementation implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.skyebook.padloader.database.DatabaseInterface#addRecord(net.skyebook.padloader.record.BBLRecord)
 	 */
 	@Override
 	public void addRecord(BBLRecord record) {
-		// TODO Auto-generated method stub
-
+		try {
+			insertBBL.setShort(1, record.getLoboro());
+			insertBBL.setInt(2, record.getLoblock());
+			insertBBL.setInt(3, record.getLolot());
+			insertBBL.setShort(4, record.getLobblscc());
+			insertBBL.setShort(5, record.getHiboro());
+			insertBBL.setInt(6, record.getHiblock());
+			insertBBL.setInt(7, record.getHilot());
+			insertBBL.setShort(8, record.getHibblscc());
+			insertBBL.setShort(9, record.getBoro());
+			insertBBL.setInt(10, record.getBlock());
+			insertBBL.setInt(11, record.getLot());
+			insertBBL.setShort(12, record.getBblscc());
+			insertBBL.setShort(13, record.getBillboro());
+			insertBBL.setInt(14, record.getBillblock());
+			insertBBL.setInt(15, record.getBilllot());
+			insertBBL.setShort(16, record.getBillbblscc());
+			insertBBL.setString(17, ""+record.getCondoflag());
+			insertBBL.setString(18, record.getCondonum());
+			insertBBL.setInt(19, record.getCoopnum());
+			insertBBL.setShort(20, record.getNumbf());
+			insertBBL.setInt(21, record.getNumaddr());
+			insertBBL.setString(22, ""+record.getVacant());
+			insertBBL.setString(23, ""+record.getInterior());
+			insertBBL.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -119,5 +149,27 @@ public class DerbyImplementation implements DatabaseInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	private static String createShortArray(short[] shortArray){
+		StringBuilder stringArray = new StringBuilder();
+		stringArray.append(shortArray.length+":");
+		for(int i=0; i<shortArray.length; i++){
+			stringArray.append(shortArray[i]+";");
+		}
+		return stringArray.toString();
+	}
+	
+	private static short[] extractShortArray(String stringArray){
+		// get the size of the array
+		short[] shortArray = new short[Integer.parseInt(stringArray.substring(0, stringArray.indexOf(":")))];
+		stringArray = stringArray.substring(stringArray.indexOf(":")+1);
+		for(int i=0; i<shortArray.length; i++){
+			short value = Short.parseShort(stringArray.substring(0, stringArray.indexOf(";")));
+			shortArray[i] = value;
+			stringArray = stringArray.substring(stringArray.indexOf(";")+1);
+		}
+		
+		return shortArray;
+	}
+	
 }

@@ -99,7 +99,7 @@ public class BBLReader extends CSVReader {
 				bbl.setHilot(Integer.parseInt(values[i]));
 				break;
 			case hibblscc:
-				bbl.setHibblscc(Integer.parseInt(values[i]));
+				bbl.setHibblscc(Short.parseShort(values[i]));
 				break;
 			case boro:
 				bbl.setBoro(Short.parseShort(values[i]));
