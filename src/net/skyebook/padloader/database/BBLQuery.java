@@ -15,10 +15,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.skyebook.padloader.record;
+package net.skyebook.padloader.database;
 
 /**
  * @author Skye Book
  *
  */
-public abstract class Record {}
+public class BBLQuery {
+
+	/**
+	 * 
+	 */
+	public BBLQuery() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

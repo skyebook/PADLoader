@@ -15,10 +15,43 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.skyebook.padloader.record;
+package net.skyebook.padloader.database;
+
+import java.util.List;
+
+import net.skyebook.padloader.record.ADRRecord;
+import net.skyebook.padloader.record.BBLRecord;
 
 /**
  * @author Skye Book
  *
  */
-public abstract class Record {}
+public interface DatabaseInterface {
+	
+	/**
+	 * Adds an {@link ADRRecord} to the database
+	 * @param record
+	 */
+	public void addRecord(ADRRecord record);
+	
+	/**
+	 * Adds a {@link BBLRecord} to the database
+	 * @param record
+	 */
+	public void addRecord(BBLRecord record);
+	
+	/**
+	 * Finds an {@link ADRRecord}
+	 * @param query
+	 * @return
+	 */
+	public List<ADRRecord> findRecord(ADRQuery query);
+	
+	/**
+	 * Finds a {@link BBLRecord}
+	 * @param query
+	 * @return
+	 */
+	public List<BBLRecord> findRecord(BBLQuery query);
+	
+}
