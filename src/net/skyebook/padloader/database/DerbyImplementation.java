@@ -82,6 +82,11 @@ public class DerbyImplementation implements DatabaseInterface {
 			insertADR.setString(16, record.getStname());
 			insertADR.setString(17, ""+record.getAddrtype());
 			insertADR.setInt(18, record.getRealb7sc());
+			insertADR.setString(19, "PUT SHORT ARRAY HERE");
+			insertADR.setShort(20, record.getParity());
+			insertADR.setLong(21, record.getB10sc());
+			insertADR.setInt(22, record.getSegid());
+			insertADR.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
