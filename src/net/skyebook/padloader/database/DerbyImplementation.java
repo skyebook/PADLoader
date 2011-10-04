@@ -3,10 +3,17 @@
  */
 package net.skyebook.padloader.database;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import net.skyebook.padloader.record.ADRRecord;
@@ -19,12 +26,12 @@ import net.skyebook.padloader.record.Record;
  *
  */
 public class DerbyImplementation implements DatabaseInterface {
-	
+
 	private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	private String databaseName = "property-address-directory";
 	private String connectionString;
 	private Connection connection;
-	
+
 	private PreparedStatement insertADR;
 	private PreparedStatement insertBBL;
 
@@ -33,23 +40,57 @@ public class DerbyImplementation implements DatabaseInterface {
 	 */
 	public DerbyImplementation() {
 		connectionString = "jdbc:derby:"+databaseName+";create=true";
-		
+
 		// Start Derby
 		try {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(connectionString);
-			
-			insertADR = connection.prepareStatement("INSERT INTO adr VALUES(?, ?, ?, ?, ?," +
+
+			createTables();
+
+			insertADR = connection.prepareStatement("INSERT INTO ADR VALUES(?, ?, ?, ?, ?," +
 					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			
-			insertBBL = connection.prepareStatement("INSERT INTO bbl VALUES(?, ?, ?, ?, ?," +
+
+			insertBBL = connection.prepareStatement("INSERT INTO BBL VALUES(?, ?, ?, ?, ?," +
 					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
+
+	private void createTables() throws IOException, SQLException{
+		Statement createTables = connection.createStatement();
+
+		StringBuilder createTablesString = new StringBuilder();
+		BufferedReader reader = new BufferedReader(new FileReader(new File("sql/create_adr_table.sql")));
+
+		while(reader.ready()){
+			String thisLine = reader.readLine();
+			if(!thisLine.contains("--")){
+				createTablesString.append(thisLine);
+			}
+		}
+		reader.close();
+		
+		createTables.execute(createTablesString.toString());
+		
+		createTablesString = new StringBuilder();
+		reader = new BufferedReader(new FileReader(new File("sql/create_bbl_table.sql")));
+		
+		while(reader.ready()){
+			String thisLine = reader.readLine();
+			if(!thisLine.contains("--")){
+				createTablesString.append(thisLine);
+			}
+		}
+		reader.close();
+
+		createTables.execute(createTablesString.toString());
 	}
 
 	/* (non-Javadoc)
@@ -95,7 +136,7 @@ public class DerbyImplementation implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.skyebook.padloader.database.DatabaseInterface#addRecord(net.skyebook.padloader.record.BBLRecord)
 	 */
@@ -149,7 +190,7 @@ public class DerbyImplementation implements DatabaseInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private static String createShortArray(short[] shortArray){
 		StringBuilder stringArray = new StringBuilder();
 		stringArray.append(shortArray.length+":");
@@ -158,7 +199,7 @@ public class DerbyImplementation implements DatabaseInterface {
 		}
 		return stringArray.toString();
 	}
-	
+
 	private static short[] extractShortArray(String stringArray){
 		// get the size of the array
 		short[] shortArray = new short[Integer.parseInt(stringArray.substring(0, stringArray.indexOf(":")))];
@@ -168,8 +209,8 @@ public class DerbyImplementation implements DatabaseInterface {
 			shortArray[i] = value;
 			stringArray = stringArray.substring(stringArray.indexOf(";")+1);
 		}
-		
+
 		return shortArray;
 	}
-	
+
 }

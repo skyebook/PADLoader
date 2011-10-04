@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.List;
 
 import net.skyebook.padloader.database.DatabaseInterface;
-import net.skyebook.padloader.database.MongoImplementation;
+import net.skyebook.padloader.database.DerbyImplementation;
 import net.skyebook.padloader.read.ADRReader;
 import net.skyebook.padloader.read.BBLReader;
 import net.skyebook.padloader.record.Record;
@@ -42,7 +42,7 @@ public class RunPadLoader {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		DatabaseInterface db = new MongoImplementation();
+		DatabaseInterface db = new DerbyImplementation();
 		
 		File addrFile = new File("/Users/skyebook/Downloads/pad10d/bobaadr.txt");
 		List<Record> adr = new ADRReader().readRecords(addrFile);
