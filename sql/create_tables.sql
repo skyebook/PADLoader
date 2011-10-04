@@ -1,7 +1,7 @@
 -- Create the ADR table
 -- Note that the validlgcs column stores its data in a VARCHAR.
 -- This means that data should be packed into a string array (semicolon delimiter preferable)
-CREATE TABLE `adr`(
+CREATE TABLE adr(
 boro SMALLINT,
 block INTEGER,
 lot INTEGER,
@@ -27,7 +27,7 @@ segid INTEGER
 );
 
 -- Create the BBL table
-CREATE TABLE `bbl`(
+CREATE TABLE bbl(
 loboro SMALLINT,
 loblock INTEGER,
 lolot INTEGER,
