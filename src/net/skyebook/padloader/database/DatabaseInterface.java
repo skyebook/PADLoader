@@ -21,12 +21,19 @@ import java.util.List;
 
 import net.skyebook.padloader.record.ADRRecord;
 import net.skyebook.padloader.record.BBLRecord;
+import net.skyebook.padloader.record.Record;
 
 /**
  * @author Skye Book
  *
  */
 public interface DatabaseInterface {
+	
+	/**
+	 * Adds a {@link record} to the database
+	 * @param record
+	 */
+	public void addRecord(Record record);
 	
 	/**
 	 * Adds an {@link ADRRecord} to the database
