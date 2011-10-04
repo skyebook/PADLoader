@@ -4,5 +4,15 @@
 	<classpathentry kind="src" path="Test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/mongo-2.6.3.jar"/>
+	<classpathentry kind="lib" path="lib/db-derby-10.8.1.2-bin/lib/derby.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://db.apache.org/derby/docs/10.8/publishedapi/jdbc4/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/db-derby-10.8.1.2-bin/lib/derbytools.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://db.apache.org/derby/docs/10.8/publishedapi/jdbc4/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
