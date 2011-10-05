@@ -27,10 +27,6 @@ import net.skyebook.padloader.read.BBLReader;
 import net.skyebook.padloader.record.Record;
 
 /**
- * 
- */
-
-/**
  * @author Skye Book
  *
  */
