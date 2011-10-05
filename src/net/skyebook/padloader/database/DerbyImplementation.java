@@ -98,8 +98,12 @@ public class DerbyImplementation implements DatabaseInterface {
 	 */
 	@Override
 	public void addRecord(Record record) {
-		// TODO Auto-generated method stub
-
+		if(record instanceof ADRRecord){
+			addRecord((ADRRecord)record);
+		}
+		else{
+			addRecord((BBLRecord)record);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -192,6 +196,8 @@ public class DerbyImplementation implements DatabaseInterface {
 	}
 
 	private static String createShortArray(short[] shortArray){
+		if(shortArray==null) return "0:";
+		
 		StringBuilder stringArray = new StringBuilder();
 		stringArray.append(shortArray.length+":");
 		for(int i=0; i<shortArray.length; i++){
