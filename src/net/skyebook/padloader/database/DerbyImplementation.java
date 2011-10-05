@@ -39,6 +39,10 @@ public class DerbyImplementation implements DatabaseInterface {
 	 * 
 	 */
 	public DerbyImplementation() {
+		
+		// Setup Derby system properties
+		System.setProperty("derby.system.durability", "test");
+		
 		connectionString = "jdbc:derby:"+databaseName+";create=true";
 
 		// Start Derby
