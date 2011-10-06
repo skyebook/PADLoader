@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -62,7 +63,18 @@ public class DerbyImplementation implements DatabaseInterface {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(connectionString);
 
-			createTables();
+			// check if the table exists
+			ResultSet adrSearch = connection.getMetaData().getTables(null, null, "adr", null);
+			if(!adrSearch.first()){
+				createADRTable();
+			}
+			
+			// check if the table exists
+			ResultSet bblSearch = connection.getMetaData().getTables(null, null, "bbl", null);
+			if(!bblSearch.first()){
+				createBBLTable();
+			}
+			
 
 			insertADR = connection.prepareStatement("INSERT INTO ADR VALUES(?, ?, ?, ?, ?," +
 					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -78,8 +90,8 @@ public class DerbyImplementation implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
-
-	private void createTables() throws IOException, SQLException{
+	
+	private void createADRTable() throws IOException, SQLException{
 		Statement createTables = connection.createStatement();
 
 		StringBuilder createTablesString = new StringBuilder();
@@ -94,9 +106,12 @@ public class DerbyImplementation implements DatabaseInterface {
 		reader.close();
 		
 		createTables.execute(createTablesString.toString());
-		
-		createTablesString = new StringBuilder();
-		reader = new BufferedReader(new FileReader(new File("sql/create_bbl_table.sql")));
+	}
+	
+	private void createBBLTable() throws IOException, SQLException{
+		Statement createTables = connection.createStatement();
+		StringBuilder createTablesString = new StringBuilder();
+		BufferedReader reader = new BufferedReader(new FileReader(new File("sql/create_bbl_table.sql")));
 		
 		while(reader.ready()){
 			String thisLine = reader.readLine();
@@ -107,6 +122,12 @@ public class DerbyImplementation implements DatabaseInterface {
 		reader.close();
 
 		createTables.execute(createTablesString.toString());
+	}
+
+	private void createTables() throws IOException, SQLException{
+		
+		
+		
 	}
 
 	/* (non-Javadoc)
