@@ -38,7 +38,7 @@ public class RunPadLoader {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		DatabaseInterface db = new DerbyImplementation();
+		DatabaseInterface db = new DerbyImplementation(new File("db/").toString());
 		
 		File addrFile = new File("/Users/skyebook/Downloads/pad10d/bobaadr.txt");
 		List<Record> adr = new ADRReader().readRecords(addrFile);

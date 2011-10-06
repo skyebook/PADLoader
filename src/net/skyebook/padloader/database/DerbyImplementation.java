@@ -52,9 +52,19 @@ public class DerbyImplementation implements DatabaseInterface {
 	 * 
 	 */
 	public DerbyImplementation() {
+		this(null);
+	}
+	
+	/**
+	 * 
+	 * @param databaseLocation The location to create the database
+	 * in.  {@code null} will have Derby start in the default location
+	 */
+	public DerbyImplementation(String databaseLocation) {
 		
 		// Setup Derby system properties
 		System.setProperty("derby.system.durability", "test");
+		if(databaseLocation!=null) System.setProperty("derby.system.home", databaseLocation);
 		
 		connectionString = "jdbc:derby:"+databaseName+";create=true";
 
@@ -122,12 +132,6 @@ public class DerbyImplementation implements DatabaseInterface {
 		reader.close();
 
 		createTables.execute(createTablesString.toString());
-	}
-
-	private void createTables() throws IOException, SQLException{
-		
-		
-		
 	}
 
 	/* (non-Javadoc)
