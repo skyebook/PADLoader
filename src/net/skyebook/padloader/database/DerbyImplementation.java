@@ -75,13 +75,13 @@ public class DerbyImplementation implements DatabaseInterface {
 
 			// check if the table exists
 			ResultSet adrSearch = connection.getMetaData().getTables(null, null, "adr", null);
-			if(!adrSearch.first()){
+			if(!adrSearch.next()){
 				createADRTable();
 			}
 			
 			// check if the table exists
 			ResultSet bblSearch = connection.getMetaData().getTables(null, null, "bbl", null);
-			if(!bblSearch.first()){
+			if(!bblSearch.next()){
 				createBBLTable();
 			}
 			
