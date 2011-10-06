@@ -47,6 +47,9 @@ public class DerbyImplementation implements DatabaseInterface {
 
 	private PreparedStatement insertADR;
 	private PreparedStatement insertBBL;
+	
+	private boolean adrExisted = true;
+	private boolean bblExisted = true;
 
 	/**
 	 * 
@@ -77,12 +80,14 @@ public class DerbyImplementation implements DatabaseInterface {
 			ResultSet adrSearch = connection.getMetaData().getTables(null, null, "adr", null);
 			if(!adrSearch.next()){
 				createADRTable();
+				adrExisted = false;
 			}
 			
 			// check if the table exists
 			ResultSet bblSearch = connection.getMetaData().getTables(null, null, "bbl", null);
 			if(!bblSearch.next()){
 				createBBLTable();
+				bblExisted = false;
 			}
 			
 
@@ -99,6 +104,10 @@ public class DerbyImplementation implements DatabaseInterface {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean tablesWereAlreadyCreated(){
+		return adrExisted && bblExisted;
 	}
 	
 	private void createADRTable() throws IOException, SQLException{
