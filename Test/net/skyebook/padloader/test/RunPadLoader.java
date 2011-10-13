@@ -78,7 +78,7 @@ public class RunPadLoader {
 		List<ADRRecord> records = db.findADRRecord(2, 3749, 1);
 		System.out.println("Found " + records.size() + " record(s)");
 		for(ADRRecord record : records){
-			System.out.println(record.getBoro()+"\t"+record.getBlock()+"\t"+record.getLot()+"\t"+record.getBin());
+			System.out.println(record.getBoro()+"\t"+record.getBlock()+"\t"+record.getLot()+"\t"+record.getBin()+"\ton "+record.getStname());
 		}
 	}
 
