@@ -271,40 +271,46 @@ public class DerbyImplementation implements DatabaseInterface {
 			findADRByBoroughBlockLot.setInt(3, lot);
 			ResultSet rs = findADRByBoroughBlockLot.executeQuery();
 			while(rs.next()){
-				// create the record
-				ADRRecord record = new ADRRecord();
-
-				// load the record with data
-				record.setBoro(rs.getShort("boro"));
-				record.setBlock(rs.getInt("block"));
-				record.setLot(rs.getInt("lot"));
-				record.setBin(rs.getInt("bin"));
-				record.setLhnd(rs.getString("lhnd"));
-				record.setLhns(rs.getString("lhns"));
-				record.setLcontpar(rs.getString("lcontpar").charAt(0));
-				record.setLsos(rs.getString("lsos").charAt(0));
-				record.setHhnd(rs.getString("hhnd"));
-				record.setHhns(rs.getString("hhns"));
-				record.setHcontpar(rs.getString("hcontpar").charAt(0));
-				record.setHsos(rs.getString("hsos").charAt(0));
-				record.setScboro(rs.getShort("scboro"));
-				record.setSc5(rs.getInt("sc5"));
-				record.setSclgc(rs.getShort("sclgc"));
-				record.setStname(rs.getString("stname"));
-				record.setAddrtype(rs.getString("addrtype").charAt(0));
-				record.setRealb7sc(rs.getInt("realb7sc"));
-				record.setValidlgcs(extractShortArray(rs.getString("validlgcs")));
-				record.setParity(rs.getShort("parity"));
-				record.setB10sc(rs.getLong("b10sc"));
-				record.setSegid(rs.getInt("segid"));
+				
 
 				// add the record to the list of records
-				records.add(record);
+				records.add(createADRFromResultSet(rs));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return records;
+	}
+	
+	private ADRRecord createADRFromResultSet(ResultSet rs) throws SQLException{
+		// create the record
+		ADRRecord record = new ADRRecord();
+
+		// load the record with data
+		record.setBoro(rs.getShort("boro"));
+		record.setBlock(rs.getInt("block"));
+		record.setLot(rs.getInt("lot"));
+		record.setBin(rs.getInt("bin"));
+		record.setLhnd(rs.getString("lhnd"));
+		record.setLhns(rs.getString("lhns"));
+		record.setLcontpar(rs.getString("lcontpar").charAt(0));
+		record.setLsos(rs.getString("lsos").charAt(0));
+		record.setHhnd(rs.getString("hhnd"));
+		record.setHhns(rs.getString("hhns"));
+		record.setHcontpar(rs.getString("hcontpar").charAt(0));
+		record.setHsos(rs.getString("hsos").charAt(0));
+		record.setScboro(rs.getShort("scboro"));
+		record.setSc5(rs.getInt("sc5"));
+		record.setSclgc(rs.getShort("sclgc"));
+		record.setStname(rs.getString("stname"));
+		record.setAddrtype(rs.getString("addrtype").charAt(0));
+		record.setRealb7sc(rs.getInt("realb7sc"));
+		record.setValidlgcs(extractShortArray(rs.getString("validlgcs")));
+		record.setParity(rs.getShort("parity"));
+		record.setB10sc(rs.getLong("b10sc"));
+		record.setSegid(rs.getInt("segid"));
+		
+		return record;
 	}
 
 	/*
