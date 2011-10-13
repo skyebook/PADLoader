@@ -50,6 +50,7 @@ public class DerbyImplementation implements DatabaseInterface {
 	private PreparedStatement insertBBL;
 
 	private PreparedStatement findADRByBoroughBlockLot;
+	private PreparedStatement findADRByBlockLot;
 
 	private boolean adrExisted = true;
 	private boolean bblExisted = true;
@@ -101,6 +102,7 @@ public class DerbyImplementation implements DatabaseInterface {
 			"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			findADRByBoroughBlockLot = connection.prepareStatement("SELECT * FROM adr WHERE boro = ? AND block = ? AND lot = ?");
+			findADRByBlockLot = connection.prepareStatement("SELECT * FROM adr WHERE AND block = ? AND lot = ?");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -269,8 +271,6 @@ public class DerbyImplementation implements DatabaseInterface {
 			findADRByBoroughBlockLot.setInt(3, lot);
 			ResultSet rs = findADRByBoroughBlockLot.executeQuery();
 			while(rs.next()){
-				
-
 				// add the record to the list of records
 				records.add(createADRFromResultSet(rs));
 			}
@@ -335,8 +335,19 @@ public class DerbyImplementation implements DatabaseInterface {
 	 */
 	@Override
 	public List<ADRRecord> findADRRecord(int block, int lot) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ADRRecord> records = new ArrayList<ADRRecord>();
+		try {
+			findADRByBlockLot.setInt(1, block);
+			findADRByBlockLot.setInt(2, lot);
+			ResultSet rs = findADRByBoroughBlockLot.executeQuery();
+			while(rs.next()){
+				// add the record to the list of records
+				records.add(createADRFromResultSet(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return records;
 	}
 
 	/* (non-Javadoc)
