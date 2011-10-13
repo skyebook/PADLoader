@@ -52,14 +52,14 @@ public interface DatabaseInterface {
 	 * @param query
 	 * @return
 	 */
-	public List<ADRRecord> findADRRecord(int block, int lot);
+	public List<ADRRecord> findADRRecord(int borough, int block, int lot);
 	
 	/**
 	 * Finds a {@link BBLRecord}
 	 * @param query
 	 * @return
 	 */
-	public List<BBLRecord> findBBLRecord(int block, int lot);
+	public List<BBLRecord> findBBLRecord(int borogh, int block, int lot);
 	
 	/**
 	 * Finds an {@link ADRRecord}

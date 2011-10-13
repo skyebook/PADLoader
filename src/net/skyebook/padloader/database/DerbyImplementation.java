@@ -26,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.skyebook.padloader.record.ADRRecord;
@@ -46,7 +47,9 @@ public class DerbyImplementation implements DatabaseInterface {
 
 	private PreparedStatement insertADR;
 	private PreparedStatement insertBBL;
-	
+
+	private PreparedStatement findADRByBoroughBlockLot;
+
 	private boolean adrExisted = true;
 	private boolean bblExisted = true;
 
@@ -56,18 +59,18 @@ public class DerbyImplementation implements DatabaseInterface {
 	public DerbyImplementation() {
 		this(null);
 	}
-	
+
 	/**
 	 * 
 	 * @param databaseLocation The location to create the database
 	 * in.  {@code null} will have Derby start in the default location
 	 */
 	public DerbyImplementation(String databaseLocation) {
-		
+
 		// Setup Derby system properties
 		System.setProperty("derby.system.durability", "test");
 		if(databaseLocation!=null) System.setProperty("derby.system.home", databaseLocation);
-		
+
 		connectionString = "jdbc:derby:"+databaseName+";create=true";
 
 		// Start Derby
@@ -81,20 +84,22 @@ public class DerbyImplementation implements DatabaseInterface {
 				createADRTable();
 				adrExisted = false;
 			}
-			
+
 			// check if the table exists
 			ResultSet bblSearch = connection.getMetaData().getTables(null, null, "bbl", null);
 			if(!bblSearch.next()){
 				createBBLTable();
 				bblExisted = false;
 			}
-			
+
 
 			insertADR = connection.prepareStatement("INSERT INTO ADR VALUES(?, ?, ?, ?, ?," +
-					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			insertBBL = connection.prepareStatement("INSERT INTO BBL VALUES(?, ?, ?, ?, ?," +
-					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+			findADRByBoroughBlockLot = connection.prepareStatement("SELECT * FROM adr WHERE boro = ? AND block = ? AND lot = ?");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -104,11 +109,11 @@ public class DerbyImplementation implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean tablesWereAlreadyCreated(){
 		return adrExisted && bblExisted;
 	}
-	
+
 	private void createADRTable() throws IOException, SQLException{
 		Statement createTables = connection.createStatement();
 
@@ -122,15 +127,15 @@ public class DerbyImplementation implements DatabaseInterface {
 			}
 		}
 		reader.close();
-		
+
 		createTables.execute(createTablesString.toString());
 	}
-	
+
 	private void createBBLTable() throws IOException, SQLException{
 		Statement createTables = connection.createStatement();
 		StringBuilder createTablesString = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResource("sql/create_bbl_table.sql").openStream()));
-		
+
 		while(reader.ready()){
 			String thisLine = reader.readLine();
 			if(!thisLine.contains("--")){
@@ -228,7 +233,7 @@ public class DerbyImplementation implements DatabaseInterface {
 
 	private static String createShortArray(short[] shortArray){
 		if(shortArray==null) return "0:";
-		
+
 		StringBuilder stringArray = new StringBuilder();
 		stringArray.append(shortArray.length+":");
 		for(int i=0; i<shortArray.length; i++){
@@ -250,20 +255,61 @@ public class DerbyImplementation implements DatabaseInterface {
 		return shortArray;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int, int)
 	 */
 	@Override
-	public List<ADRRecord> findADRRecord(int block, int lot) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ADRRecord> findADRRecord(int borough, int block, int lot) {
+		ArrayList<ADRRecord> records = new ArrayList<ADRRecord>();
+		try {
+			findADRByBoroughBlockLot.setInt(1, borough);
+			findADRByBoroughBlockLot.setInt(2, block);
+			findADRByBoroughBlockLot.setInt(3, lot);
+			ResultSet rs = findADRByBoroughBlockLot.executeQuery();
+			while(rs.next()){
+				// create the record
+				ADRRecord record = new ADRRecord();
+
+				// load the record with data
+				record.setBoro(rs.getShort("boro"));
+				record.setBlock(rs.getInt("block"));
+				record.setLot(rs.getInt("lot"));
+				record.setBin(rs.getInt("bin"));
+				record.setLhnd(rs.getString("lhnd"));
+				record.setLhns(rs.getString("lhns"));
+				record.setLcontpar(rs.getString("lcontpar").charAt(0));
+				record.setLsos(rs.getString("lsos").charAt(0));
+				record.setHhnd(rs.getString("hhnd"));
+				record.setHhns(rs.getString("hhns"));
+				record.setHcontpar(rs.getString("hcontpar").charAt(0));
+				record.setHsos(rs.getString("hsos").charAt(0));
+				record.setScboro(rs.getShort("scboro"));
+				record.setSc5(rs.getInt("sc5"));
+				record.setSclgc(rs.getShort("sclgc"));
+				record.setStname(rs.getString("stname"));
+				record.setAddrtype(rs.getString("addrtype").charAt(0));
+				record.setRealb7sc(rs.getInt("realb7sc"));
+				record.setValidlgcs(extractShortArray(rs.getString("validlgcs")));
+				record.setParity(rs.getShort("parity"));
+				record.setB10sc(rs.getLong("b10sc"));
+				record.setSegid(rs.getInt("segid"));
+
+				// add the record to the list of records
+				records.add(record);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return records;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int, int)
 	 */
 	@Override
-	public List<BBLRecord> findBBLRecord(int block, int lot) {
+	public List<BBLRecord> findBBLRecord(int borough, int block, int lot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -138,20 +138,22 @@ public class MongoImplementation implements DatabaseInterface {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int, int)
 	 */
 	@Override
-	public List<ADRRecord> findADRRecord(int block, int lot) {
+	public List<ADRRecord> findADRRecord(int borough, int block, int lot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int, int)
 	 */
 	@Override
-	public List<BBLRecord> findBBLRecord(int block, int lot) {
+	public List<BBLRecord> findBBLRecord(int borough, int block, int lot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
