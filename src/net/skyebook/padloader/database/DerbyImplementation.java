@@ -18,6 +18,8 @@
 package net.skyebook.padloader.database;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -32,6 +34,7 @@ import java.util.List;
 import net.skyebook.padloader.record.ADRRecord;
 import net.skyebook.padloader.record.BBLRecord;
 import net.skyebook.padloader.record.Record;
+import net.skyebook.padloader.util.ResourceLoader;
 
 /**
  * Connects to an embedded Derby database
@@ -118,7 +121,7 @@ public class DerbyImplementation implements DatabaseInterface {
 		Statement createTables = connection.createStatement();
 
 		StringBuilder createTablesString = new StringBuilder();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResource("sql/create_adr_table.sql").openStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.loadResource("/sql/create_adr_table.sql").openStream()));
 
 		while(reader.ready()){
 			String thisLine = reader.readLine();
@@ -134,7 +137,7 @@ public class DerbyImplementation implements DatabaseInterface {
 	private void createBBLTable() throws IOException, SQLException{
 		Statement createTables = connection.createStatement();
 		StringBuilder createTablesString = new StringBuilder();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResource("sql/create_bbl_table.sql").openStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.loadResource("/sql/create_bbl_table.sql").openStream()));
 
 		while(reader.ready()){
 			String thisLine = reader.readLine();
