@@ -49,17 +49,39 @@ public interface DatabaseInterface {
 	
 	/**
 	 * Finds an {@link ADRRecord}
-	 * @param query
+	 * @param borough
+	 * @param block
+	 * @param lot
 	 * @return
 	 */
 	public List<ADRRecord> findADRRecord(int borough, int block, int lot);
 	
 	/**
 	 * Finds a {@link BBLRecord}
-	 * @param query
+	 * @param borogh
+	 * @param block
+	 * @param lot
 	 * @return
 	 */
 	public List<BBLRecord> findBBLRecord(int borogh, int block, int lot);
+	
+	/**
+	 * Finds an {@link ADRRecord}
+	 * @param borough
+	 * @param block
+	 * @param lot
+	 * @return
+	 */
+	public List<ADRRecord> findADRRecord(int block, int lot);
+	
+	/**
+	 * Finds a {@link BBLRecord}
+	 * @param borogh
+	 * @param block
+	 * @param lot
+	 * @return
+	 */
+	public List<BBLRecord> findBBLRecord(int block, int lot);
 	
 	/**
 	 * Finds an {@link ADRRecord}

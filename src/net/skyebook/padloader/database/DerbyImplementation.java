@@ -18,8 +18,6 @@
 package net.skyebook.padloader.database;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -328,6 +326,24 @@ public class DerbyImplementation implements DatabaseInterface {
 	 */
 	@Override
 	public List<ADRRecord> findRecord(int bin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int)
+	 */
+	@Override
+	public List<ADRRecord> findADRRecord(int block, int lot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int)
+	 */
+	@Override
+	public List<BBLRecord> findBBLRecord(int block, int lot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
