@@ -24,6 +24,7 @@ import net.skyebook.padloader.database.DatabaseInterface;
 import net.skyebook.padloader.database.DerbyImplementation;
 import net.skyebook.padloader.read.ADRReader;
 import net.skyebook.padloader.read.BBLReader;
+import net.skyebook.padloader.record.ADRRecord;
 import net.skyebook.padloader.record.Record;
 
 /**
@@ -71,6 +72,14 @@ public class RunPadLoader {
 		
 		// release the resources
 		bbl = null;
+		
+		
+		// run a test
+		List<ADRRecord> records = db.findADRRecord(2, 3749, 1);
+		System.out.println("Found " + records.size() + " record(s)");
+		for(ADRRecord record : records){
+			System.out.println(record.getBoro()+"\t"+record.getBlock()+"\t"+record.getLot()+"\t"+record.getBin());
+		}
 	}
 
 }
