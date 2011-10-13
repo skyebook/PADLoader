@@ -226,24 +226,6 @@ public class DerbyImplementation implements DatabaseInterface {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findRecord(net.skyebook.padloader.database.ADRQuery)
-	 */
-	@Override
-	public List<ADRRecord> findRecord(ADRQuery query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see net.skyebook.padloader.database.DatabaseInterface#findRecord(net.skyebook.padloader.database.BBLQuery)
-	 */
-	@Override
-	public List<BBLRecord> findRecord(BBLQuery query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private static String createShortArray(short[] shortArray){
 		if(shortArray==null) return "0:";
 		
@@ -266,6 +248,33 @@ public class DerbyImplementation implements DatabaseInterface {
 		}
 
 		return shortArray;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findADRRecord(int, int)
+	 */
+	@Override
+	public List<ADRRecord> findADRRecord(int block, int lot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findBBLRecord(int, int)
+	 */
+	@Override
+	public List<BBLRecord> findBBLRecord(int block, int lot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.skyebook.padloader.database.DatabaseInterface#findRecord(int)
+	 */
+	@Override
+	public List<ADRRecord> findRecord(int bin) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -52,13 +52,20 @@ public interface DatabaseInterface {
 	 * @param query
 	 * @return
 	 */
-	public List<ADRRecord> findRecord(ADRQuery query);
+	public List<ADRRecord> findADRRecord(int block, int lot);
 	
 	/**
 	 * Finds a {@link BBLRecord}
 	 * @param query
 	 * @return
 	 */
-	public List<BBLRecord> findRecord(BBLQuery query);
+	public List<BBLRecord> findBBLRecord(int block, int lot);
+	
+	/**
+	 * Finds an {@link ADRRecord}
+	 * @param query
+	 * @return
+	 */
+	public List<ADRRecord> findRecord(int bin);
 	
 }
